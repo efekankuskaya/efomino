@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Affettirme Operasyonu</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body{
+        overflow:hidden;
+        background:white;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        position:relative;
+    }
+
+    /* Akan kalpler */
+    .heart{
+        position:absolute;
+        color:pink;
+        font-size:14px;
+        animation:fall linear infinite;
+        opacity:0.7;
+    }
+
+    @keyframes fall{
+        0%{
+            transform:translateY(-10vh);
+            opacity:0;
+        }
+        10%{
+            opacity:0.8;
+        }
+        100%{
+            transform:translateY(110vh);
+            opacity:0;
+        }
+    }
+
+    .container{
+        text-align:center;
+        z-index:10;
+    }
+
+    h1{
+        font-size:32px;
+        margin-bottom:20px;
+        color:#ff4f87;
+    }
+
+    img{
+        width:220px;
+        margin-bottom:25px;
+    }
+
+    .buttons{
+        position:relative;
+        width:300px;
+        height:120px;
+        margin:auto;
+    }
+
+    button{
+        padding:14px 28px;
+        border:none;
+        border-radius:12px;
+        cursor:pointer;
+        font-size:18px;
+        transition:0.2s;
+        position:absolute;
+    }
+
+    #yesBtn{
+        left:40px;
+        background:#ff6fa3;
+        color:white;
+    }
+
+    #noBtn{
+        right:40px;
+        background:#ddd;
+    }
+
+    .final-screen{
+        display:none;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+    }
+
+    .final-screen h1{
+        margin-bottom:20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container" id="mainScreen">
+    <h1>
+        seni affettirecek hünerlerimi gösteriyim mi 😉
+    </h1>
+
+    <img src="typing.gif" alt="typing gif">
+
+    <div class="buttons">
+        <button id="yesBtn">Evet</button>
+        <button id="noBtn">Hayır</button>
+    </div>
+</div>
+
+<div class="final-screen" id="finalScreen">
+    <h1>özür dilerim prensesim bu çiçekler sana 🌸</h1>
+    <img src="flower.gif" alt="flower gif">
+</div>
+
+<script>
+
+    /* Kalp oluşturma */
+    function createHeart(){
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        heart.style.fontSize = (Math.random() * 15 + 10) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    setInterval(createHeart, 200);
+
+    /* Hayır butonu kaçsın */
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", () => {
+
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+    });
+
+    /* Evet butonu */
+    const yesBtn = document.getElementById("yesBtn");
+
+    yesBtn.addEventListener("click", () => {
+
+        document.getElementById("mainScreen").style.display = "none";
+
+        document.getElementById("finalScreen").style.display = "flex";
+    });
+
+</script>
+
+</body>
+</html>
